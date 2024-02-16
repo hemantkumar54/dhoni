@@ -1,38 +1,56 @@
- <html>
+<!DOCTYPE html>
 <html>
 <head>
-<title>Shopping Cart</title>
-<style>
-        /* Add your CSS styles here */
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic Light</title>
+    <style>
+        .light {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 10px;
+        }
+        .green { background-color: green; }
+        .yellow { background-color: yellow; }
+        .red { background-color: red; }
     </style>
 </head>
 <body>
-    <h1>My Shopping Cart</h1>
-    <div id="cart">
-        <!-- Cart items will be displayed here -->
-    </div>
-    <button onclick="addToCart('Product A', 2000)">Add Product A (Rs. 2000)</button>
-    <button onclick="addToCart('Product B', 3500)">Add Product B (Rs. 3500)</button>
-    <button onclick="calculateTotal()">Calculate Total</button>
-    <p id="totalPrice"></p>
+    <h1>Traffic Light</h1>
+    <div class="light green"></div>
+    <div class="light yellow"></div>
+    <div class="light red"></div>
 
     <script>
-        const cart = [];
-        let total = 0;
-
-        function addToCart(productName, price) {
-            cart.push({ name: productName, price: price });
-        }
-
-        function calculateTotal() {
-            total = cart.reduce((acc, item) => acc + item.price, 0);
-            if (total > 5000) {
-                const discountedTotal = total * 0.9;
-                document.getElementById('totalPrice').textContent = `Total Price (with 10% discount): Rs. ${discountedTotal.toFixed(2)}`;
-            } else {
-                document.getElementById('totalPrice').textContent = `Original Total Price: Rs. ${total.toFixed(2)}`;
+        function displayMessage(color) {
+            const message = document.createElement('p');
+            switch (color) {
+                case 'green':
+                    message.textContent = 'Green - Go';
+                    break;
+                case 'yellow':
+                    message.textContent = 'Yellow - Slow down';
+                    break;
+                case 'red':
+                    message.textContent = 'Red - Stop';
+                    break;
+                default:
+                    message.textContent = 'Unknown color';
             }
+            document.body.appendChild(message);
         }
+
+        // Simulate the traffic light sequence
+        setTimeout(() => {
+            displayMessage('green');
+            setTimeout(() => {
+                displayMessage('yellow');
+                setTimeout(() => {
+                    displayMessage('red');
+                }, 2000); // Red for 2 seconds
+            }, 2000); // Yellow for 2 seconds
+        }, 2000); // Green for 2 seconds
     </script>
 </body>
 </html>
