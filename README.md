@@ -1,56 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Traffic Light</title>
-    <style>
-        .light {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            margin: 10px;
-        }
-        .green { background-color: green; }
-        .yellow { background-color: yellow; }
-        .red { background-color: red; }
-    </style>
+    <title>Fitness App</title>
 </head>
 <body>
-    <h1>Traffic Light</h1>
-    <div class="light green"></div>
-    <div class="light yellow"></div>
-    <div class="light red"></div>
+    <h1>Fitness Level Calculator</h1>
+    <form method="post">
+        <label for="steps">Enter the number of steps walked:</label>
+        <input type="number" id="steps" name="steps" required>
+        <input type="submit" value="Calculate">
+    </form>
 
-    <script>
-        function displayMessage(color) {
-            const message = document.createElement('p');
-            switch (color) {
-                case 'green':
-                    message.textContent = 'Green - Go';
-                    break;
-                case 'yellow':
-                    message.textContent = 'Yellow - Slow down';
-                    break;
-                case 'red':
-                    message.textContent = 'Red - Stop';
-                    break;
-                default:
-                    message.textContent = 'Unknown color';
-            }
-            document.body.appendChild(message);
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Get the number of steps from user input
+        $steps = $_POST["steps"];
+
+        // Determine the fitness level based on the number of steps
+        if ($steps < 5000) {
+            $fitnessLevel = 'Beginner';
+        } elseif ($steps >= 5000 && $steps <= 10000) {
+            $fitnessLevel = 'Intermediate';
+        } else {
+            $fitnessLevel = 'Advanced';
         }
 
-        // Simulate the traffic light sequence
-        setTimeout(() => {
-            displayMessage('green');
-            setTimeout(() => {
-                displayMessage('yellow');
-                setTimeout(() => {
-                    displayMessage('red');
-                }, 2000); // Red for 2 seconds
-            }, 2000); // Yellow for 2 seconds
-        }, 2000); // Green for 2 seconds
-    </script>
+        // Display the result
+        echo "<p>Your fitness level: <strong>$fitnessLevel</strong></p>";
+    }
+    ?>
 </body>
 </html>
